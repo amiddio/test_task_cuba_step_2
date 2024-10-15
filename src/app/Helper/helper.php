@@ -56,3 +56,17 @@ if (!function_exists('createAtomsFromPlainText'))
         ];
     }
 }
+
+if (!function_exists('articleCleaning'))
+{
+    /**
+     * Удаляем лишние переводы строк у статьи
+     *
+     * @param string $text
+     * @return string
+     */
+    function articleCleaning(string $text): string
+    {
+        return preg_replace('/\t+\n+/u','', $text);
+    }
+}

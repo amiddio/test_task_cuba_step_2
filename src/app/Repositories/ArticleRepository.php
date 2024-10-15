@@ -46,7 +46,7 @@ class ArticleRepository
                 'title' => $info['title'],
                 'size' => $info['size'],
                 'total_words' => $atomsInfo['total_atoms'],
-                'content' => $content,
+                'content' => articleCleaning($content),
             ]);
 
             $processedAtoms = [];
