@@ -28,14 +28,12 @@
             }
         }
     </style>
-    <script src="{{ asset('js/jquery-3.7.1.min.js') }}"></script>
 </head>
 <body class="d-flex flex-column h-100">
-
 @include('includes/header')
 
 <!-- Begin page content -->
-<main class="flex-shrink-0">
+<main class="flex-shrink-0" style="margin-top: 20px; margin-bottom: 30px;">
     <div class="container">
         {{ $content }}
     </div>

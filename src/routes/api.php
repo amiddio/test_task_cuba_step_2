@@ -1,7 +1,8 @@
 <?php
 
+use App\Http\Controllers\Api\V1\ArticleController;
 use App\Http\Controllers\Api\V1\ImportArticleController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\V1\SearchArticleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,5 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::prefix('v1')->group(function () {
-    Route::post('search_article', ImportArticleController::class)->name('api.v1.search_article');
+    Route::post('import', ImportArticleController::class)->name('api.v1.import_article');
+    Route::post('search', SearchArticleController::class)->name('api.v1.search_article');
+    Route::get('article/{article_id}', ArticleController::class)->name('api.v1.article');
 });
