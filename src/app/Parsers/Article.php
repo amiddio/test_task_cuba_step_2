@@ -5,17 +5,23 @@ namespace App\Parsers;
 use App\Exceptions\WikiArticleNotFound;
 use App\Exceptions\WikiRequestIssue;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Str;
 
+/**
+ * Парсер детальной информации статьи
+ */
 class Article extends BaseParser implements ParserInterface
 {
 
     /**
+     * Метод запускающий парсинг.
+     * По названию статьи получаем ее полное содержание.
+     * Сам контент приходит как текст (plain text)
+     *
      * @return object
      * @throws WikiRequestIssue
      * @throws WikiArticleNotFound
      */
-    public function parse(): void
+    public function parse(): object
     {
         $response = Http::get($this->getUrl(), [
             'action' => 'query',
@@ -26,53 +32,36 @@ class Article extends BaseParser implements ParserInterface
         ]);
 
         if (!$response->successful()) {
-            throw new WikiRequestIssue(__('An error occurred on the wiki'));
+            throw new WikiRequestIssue(__('Произошла ошибка на wikipedia ресурсе'));
         }
 
         foreach ($response->json('query.pages') as $pageId => $article) {
             if ($pageId <= 0) {
-                throw new WikiArticleNotFound(__('Article not found'));
+                throw new WikiArticleNotFound(__('Статья не найдена на wikipedia ресурсе'));
             }
             if ($article['pageid'] == $this->inputData['page_id']) {
                 $this->parsedData = $article;
                 break;
             }
         }
+
+        return $this;
     }
 
+
     /**
-     * @return ?string
+     * Метод возвращает полученные после парсинга данные
+     *
+     * @return array
      * @throws WikiArticleNotFound
      */
-    public function getPlainText(): ?string
+    public function getData(): array
     {
-        if (isset($this->parsedData['extract'])) {
-            return $this->parsedData['extract'];
+        if (!$this->parsedData) {
+            throw new WikiArticleNotFound(__('Статья не найдена на wikipedia ресурсе'));
         }
 
-        throw new WikiArticleNotFound(__('Article not found'));
+        return $this->parsedData;
     }
 
-    /**
-     * @return array|null
-     */
-    public function getParsedWords(): ?array
-    {
-        if (isset($this->parsedData['extract'])) {
-            $article = Str::lower($this->parsedData['extract']);
-
-            preg_match_all("/(\w+)/ui", $article, $matches);
-            if (!isset($matches[0])) {
-                return null;
-            }
-            $uniqueWords = array_count_values($matches[0]);
-
-            return [
-                'all_unique_words' => $uniqueWords,
-                'total_words' => array_sum($uniqueWords),
-            ];
-        }
-
-        return null;
-    }
 }

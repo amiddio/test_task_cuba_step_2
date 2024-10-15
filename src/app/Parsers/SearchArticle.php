@@ -7,13 +7,17 @@ use App\Exceptions\WikiRequestIssue;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
-class SearchArticles extends BaseParser implements ParserInterface
+class SearchArticle extends BaseParser implements ParserInterface
 {
 
     /**
+     * Метод запускающий парсинг.
+     * По названии статьи получаем мета информацию.
+     *
+     * @return object
      * @throws WikiRequestIssue
      */
-    public function parse(): void
+    public function parse(): object
     {
         $response = Http::get($this->getUrl(), [
             'action' => 'query',
@@ -23,7 +27,7 @@ class SearchArticles extends BaseParser implements ParserInterface
         ]);
 
         if (!$response->successful()) {
-            throw new WikiRequestIssue(__('An error occurred on the wiki'));
+            throw new WikiRequestIssue(__('Произошла ошибка на wikipedia ресурсе'));
         }
 
         foreach ($response->json('query.search') as $item) {
@@ -32,17 +36,23 @@ class SearchArticles extends BaseParser implements ParserInterface
                 break;
             }
         }
+
+        return $this;
     }
 
     /**
+     * Метод возвращает полученные после парсинга данные
+     *
+     * @return array
      * @throws WikiArticleNotFound
      */
-    public function getArticle(): array
+    public function getData(): array
     {
         if (!$this->parsedData) {
-            throw new WikiArticleNotFound(__('Article not found'));
+            throw new WikiArticleNotFound(__('Статья не найдена на wikipedia ресурсе'));
         }
 
         return $this->parsedData;
     }
+
 }

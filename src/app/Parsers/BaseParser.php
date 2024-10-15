@@ -22,6 +22,8 @@ abstract class BaseParser
     }
 
     /**
+     * Метод возвращает url api соответствующей языковой версии wikipedia
+     *
      * @return string
      */
     protected function getUrl(): string

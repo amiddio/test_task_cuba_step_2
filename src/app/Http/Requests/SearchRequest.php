@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Article;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ImportRequest extends FormRequest
+class SearchRequest extends FormRequest
 {
 
     /**
@@ -16,8 +15,7 @@ class ImportRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string', 'unique:' . Article::class . ',title'],
-            'language' => ['required', 'string', 'size:2'],
+            'kw' => ['required', 'string'],
         ];
     }
 
@@ -27,8 +25,8 @@ class ImportRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'title.required' => __('Название статьи не может быть пустым'),
-            'title.unique' => __('Такая статья уже импортирована'),
+            'kw.required' => __('Строка поиска не может быть пустой'),
         ];
     }
+
 }

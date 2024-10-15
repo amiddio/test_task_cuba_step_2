@@ -4,5 +4,13 @@ namespace App\Parsers;
 
 interface ParserInterface
 {
-    public function parse(): void;
+    /**
+     * @return object
+     */
+    public function parse(): object;
+
+    /**
+     * @return array
+     */
+    public function getData(): array;
 }
