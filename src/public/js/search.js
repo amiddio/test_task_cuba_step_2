@@ -23,6 +23,8 @@ $(function () {
     $('#search-button').click(function (e) {
         e.preventDefault();
 
+        $('#article-section').hide();
+
         $.ajax({
             data: $('#search-form').serialize(),
             url: '/api/v1/search',
