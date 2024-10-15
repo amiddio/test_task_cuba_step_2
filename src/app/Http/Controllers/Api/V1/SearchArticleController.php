@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SearchRequest;
-use App\Repositories\GeneralRepository;
+use App\Repositories\ArticleRepository;
 use Exception;
 use Illuminate\Http\JsonResponse;
 
@@ -25,7 +25,7 @@ class SearchArticleController extends Controller
 
         $validated = $request->validated();
         try {
-            $articles = GeneralRepository::searchArticlesByKeyWord(keyword: $validated['kw']);
+            $articles = ArticleRepository::searchArticlesByKeyWord(keyword: $validated['kw']);
             if (!$articles) {
                 return response()->json(['message' => __('По вашему запросу ничего не найдено')], 404);
             }

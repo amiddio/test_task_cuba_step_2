@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ImportRequest;
 use App\Parsers\Article;
 use App\Parsers\SearchArticle;
-use App\Repositories\GeneralRepository;
+use App\Repositories\ArticleRepository;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;
@@ -45,7 +45,7 @@ class ImportArticleController extends Controller
             $articleContent = (new Article(inputData: $validated))->parse()->getData();
 
             // Импортируем статью
-            $article = GeneralRepository::importArticle(info: $articleInfo, content: $articleContent);
+            $article = ArticleRepository::importArticle(info: $articleInfo, content: $articleContent);
 
             return response()->json([
                 'data' => [

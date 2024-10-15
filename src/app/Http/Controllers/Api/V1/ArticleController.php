@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\GeneralRepository;
+use App\Repositories\ArticleRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -22,7 +22,7 @@ class ArticleController extends Controller
             return response()->json(['message' => __('Запрос должен быть ajax')], 400);
         }
 
-        $article = GeneralRepository::getArticleById(articleId: $article_id);
+        $article = ArticleRepository::getArticleById(articleId: $article_id);
         if (!$article) {
             return response()->json(['message' => __('Статьи с ID \':id\' не существует', ['id' => $article_id])], 404);
         }

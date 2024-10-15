@@ -14,7 +14,7 @@ use Throwable;
 /**
  * Класс с методами содержащие бизнес-логику работы со статьями и атомами
  */
-class GeneralRepository
+class ArticleRepository
 {
 
     /**
