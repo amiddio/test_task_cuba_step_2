@@ -3,7 +3,7 @@
         <input type="text" class="form-control" id="kw" name="kw" placeholder="{{ __('Укажите поисковое слово') }}" value="" required>
     </div>
     <div class="col-sm-2">
-        <button type="button" id="search-button" class="btn btn-primary mb-3">{{ __('Поиск') }}</button>
+        <button type="button" id="search-button" class="btn btn-primary mb-3">{{ __('Найти') }}</button>
     </div>
 </form>
 

@@ -10,7 +10,7 @@
         </select>
     </div>
     <div class="col-sm-2">
-        <button type="button" id="import-button" class="btn btn-primary mb-3">{{ __('Импортировать') }}</button>
+        <button type="button" id="import-button" class="btn btn-primary mb-3">{{ __('Скопировать') }}</button>
     </div>
 </form>
 
