@@ -12,3 +12,13 @@
 
 * barryvdh/laravel-debugbar
 * barryvdh/laravel-ide-helper
+
+## Screenshots
+
+![Screenshot_1](/screenshots/Screenshot_01.png)
+
+![Screenshot_2](/screenshots/Screenshot_02.png)
+
+![Screenshot_3](/screenshots/Screenshot_03.png)
+
+![Screenshot_4](/screenshots/Screenshot_04.png)
